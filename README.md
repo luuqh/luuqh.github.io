@@ -11,5 +11,5 @@ Apple did release a hardware-accelerated TensorFlow and TensorFlow Addons for ma
 *Step 1*: Grab the most recent Tensorflow version from Apple team in GitHub:
 [https://github.com/apple/tensorflow_macos/releases](https://github.com/apple/tensorflow_macos/releases). 
 
-Unfold Assets tab [!](images/apple-tensorflow-assets.png) and select the complete version [tensorflow_macos-0.1alpha2.tar.gz](https://github.com/apple/tensorflow_macos/releases/download/v0.1alpha2/tensorflow_macos-0.1alpha2.tar.gz). Unzip it to your download folder.
+Unfold Assets tab ![Assets tab](images/apple-tensorflow-assets.png) and select the complete version [tensorflow_macos-0.1alpha2.tar.gz](https://github.com/apple/tensorflow_macos/releases/download/v0.1alpha2/tensorflow_macos-0.1alpha2.tar.gz). Unzip it to your download folder.
 
