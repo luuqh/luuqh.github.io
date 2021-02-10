@@ -264,6 +264,9 @@ The latest support OS is the *Ubuntu 14.04*. I grab this latest x86_64-bit DEB v
 ```
 https://developer.nvidia.com/cuda-toolkit-65
 ```
-and install it.
+and install it. Since our NVIDIA GPU is no longer officially supported, we can only try the newer version (9.0) to see if it works
+```
+conda create -n cudatf tensorflow-gpu cudatoolkit=9.0
+```
 
 
