@@ -182,12 +182,14 @@ Once having the version, install Chrome in the Terminal with DPKG
 ```
 cd [path/to/download/folder]
 sudo dpkg -i 'google-chrome-stable_current_amd64.deb' 
-
 ```
+Some other useful packages that can be installed from Ubuntu Store, such as [VS Code](https://snapcraft.io/code), [VLC](apt://vlc), etc.
 
 ### Install Conda, Tensorflow, Docker
 
 Anaconda is a distribution of the Python and R programming languages for scientific computing, that aims to simplify package management and deployment. The instruction for installing Conda is based on [this post](https://linuxize.com/post/how-to-install-anaconda-on-ubuntu-20-04/). 
+
+**Step 1: Install Anaconda**
 
 Since Anaconda relies on QT package for its interface, preinstallation is required
 ```
@@ -217,7 +219,51 @@ I am not sure the script or the Ubuntu 20.04 that causes this trouble, but seem 
 ```
 mrdir /home/(yourusername)/Programs/Anaconda3
 ```
+Accept when being asked to initialize Conda with PATH environment, and then type in the Terminal for the update 
+```
+source ~/.bashrc
+```
+Now create a new environment, for instance *tensorflow*
+```
+conda create --name tensorflow
+```
+Activate this environment everytime you want to use it for your development with
+```
+conda conda tensorflow
+```
+**Step 2: Install Tensorflow**
+
+Tensorflow for Linux should be installed manually using Command Line Interface (CLI). The below instruction is similar to the one given in [Tensorflow website](https://www.tensorflow.org/install/pip#virtual-environment-install).
+
+Install some supporting packages for Python environment
+```
+sudo apt install python3-venv python3-dev
+```
+Sometimes PIP package is missing, so you may need to reinstall it first
+```
+sudo apt install python3-pip
+```
+before actually install latest version of Tensorflow (2.4.1 as of the time of this writing)
+```
+pip3 install --upgrade tensorflow
+```
+A quick verification of its install is the command
+```
+python3 -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+```
+
+### Install Tensorflow-GPU, CUDA, nnCUDA, NVIDIA Docker
 
 
+After checking the hardware, I found that my NVIDIA GTX 970 card is only supported by the CUDA 6.5. 
+```
+https://developer.nvidia.com/cuda-downloads-geforce-gtx9xx
+```
+The latest support OS is the *Ubuntu 14.04*. I grab this latest x86_64-bit DEB version from
 
-### Install NVIDIA CUDA, nnCUDA, Docker
+```
+https://developer.nvidia.com/cuda-toolkit-65
+```
+and install it.
+
+
