@@ -154,15 +154,27 @@ This work is credited to the instruction of [Sayak Paul](https://sayak.dev/insta
 
 ## Linux NVIDIA System
 
-While Apple Mac is a reasonable choice to play around with data analytics, most of deep learning tasks are executed on Linux-like systems. We set up a system that built on Intel Core i7, NVIDIA GTX 970, 16 GB RAM, 1 TB SSD and 3 TB HDD. You can 
+While Apple Mac is a reasonable choice to play around with data analytics, most of deep learning tasks are executed on Linux-like systems. We will set up an Ubuntu system with hardware configuration of Intel Core i7, NVIDIA GTX 970, 16 GB RAM, 1 TB SSD and 3 TB HDD.  
 
 ### Install Ubuntu and basic packages
 
-To install Ubuntu, you need a blank (USB) thumbdrive.
+Ubuntu is a Linux distribution based on Debian and composed mostly of free and open-source software. The latest Long-Term Support (LTS) version Ubuntu 20.04LTS is its best, providing many advance features and having a nice Graphic User Interface (GUI). It is prebuilt with a large collection of driver, from wifi adapter to mainboard, so it is very convenient to use it even for daily tasks.
+
+To install Ubuntu, you need a blank flash (USB) thumbdrive. To move on, paste the below link to get the CD/DVD (ISO) image of Ubuntu
+```
+https://releases.ubuntu.com/20.04/ubuntu-20.04.2-desktop-amd64.iso
+```
+I prefer to use the 20.04LTS instead of the latest version 20.10. It is because when I install 20.10, many Docker and NVIDIA features are missing or unsupported, requiring me to go backward to a version that is more stable and well supported.
+
+In the past, installing a new Operating System (OS) require to have a CD/DVD. Nowsadays you can install OS using flash drive. Note that you still do need a laptop/desktop running Windows (that is able to run an Windows-based installation software namely Rufus). Now download the latest version of Rufus (3.13 as the time of writing this instruction) from the address
+```
+https://github.com/pbatard/rufus/releases/download/v3.13/rufus-3.13.exe
+```
+Select the downloaded ISO file from Rufus > *Select* button. Retain everything else unchanged. Click *Start* to start writing. Sometimes Rufus may ask you to download supporting tool during installation, then accept it. When it asks you to select the ISO or DD mode, select the DD. In my case, the ISO mode does not work for version 20.04 (but strangly the ISO mode works when I install with Ubuntu 20.10).
 
 It is convenient to use Google Chrome accorss platform. So it is one of the basic packages you want to install at the first sign.
 
-You can download the [Google Chrome for Linux](https://www.google.com/chrome/) from here. Don't forget to get the "64-bit .deb (For Debian/Ubuntu] version". Otherwise, use WGET to grab in from Terminal command line 
+You can download the [Google Chrome for Linux from here](https://www.google.com/chrome/). Don't forget to get the "64-bit .deb (For Debian/Ubuntu] version". Otherwise, you can directly use WGET to grab it from Terminal command line:
 ```
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 ```
