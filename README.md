@@ -1,7 +1,10 @@
 # Hung Q. Luu
 Some useful tips.
 
+---
+
 ## Apple silicon Mac
+
 Apple silicon-based products released in the end of 2020 are the game-changer. Mac computers with Apple silicon can run much faster than the Intel-based competitors for the same configuration. More interestingly, you can use your Mac for data science and machine learning tasks. I have configured my Mac Mini M1 to run deep learning tasks as follows.
 
 ### Install Tensorflow on Mac M1
@@ -145,3 +148,32 @@ then link it with
 ln -s /usr/local/lib/python3.8/site-packages/cv2/python-3.8/cv2.cpython-38-darwin.so cv2.so
 ```
 This work is credited to the instruction of [Sayak Paul](https://sayak.dev/install-opencv-m1/).
+
+
+---
+
+## Linux NVIDIA System
+
+While Apple Mac is a reasonable choice to play around with data analytics, most of deep learning tasks are executed on Linux-like systems. We set up a system that built on Intel Core i7, NVIDIA GTX 970, 16 GB RAM, 1 TB SSD and 3 TB HDD. You can 
+
+### Install Ubuntu and basic packages
+
+To install Ubuntu, you need a blank (USB) thumbdrive.
+
+It is convenient to use Google Chrome accorss platform. So it is one of the basic packages you want to install at the first sign.
+
+You can download the [Google Chrome for Linux](https://www.google.com/chrome/) from here. Don't forget to get the "64-bit .deb (For Debian/Ubuntu] version". Otherwise, use WGET to grab in from Terminal command line 
+```
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+```
+Once having the version, install Chrome in the Terminal with DPKG
+```
+sudo dpkg -i '/home/luuquanghung/Downloads/google-chrome-stable_current_amd64.deb' 
+
+```
+
+### Install Conda, Tensorflow, Docker
+
+
+
+### Install NVIDIA CUDA, nnCUDA, Docker
