@@ -180,11 +180,43 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 ```
 Once having the version, install Chrome in the Terminal with DPKG
 ```
-sudo dpkg -i '/home/luuquanghung/Downloads/google-chrome-stable_current_amd64.deb' 
+cd [path/to/download/folder]
+sudo dpkg -i 'google-chrome-stable_current_amd64.deb' 
 
 ```
 
 ### Install Conda, Tensorflow, Docker
+
+Anaconda is a distribution of the Python and R programming languages for scientific computing, that aims to simplify package management and deployment. The instruction for installing Conda is based on [this post](https://linuxize.com/post/how-to-install-anaconda-on-ubuntu-20-04/). 
+
+Since Anaconda relies on QT package for its interface, preinstallation is required
+```
+sudo apt install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+```
+Check out the link to identify the latest version (starting with *Anaconda3-2020.*)
+```
+https://repo.anaconda.com/archive/
+```
+Get the installation Bash script for latest version
+```
+wget -P /tmp https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh
+```
+and install it
+```
+bash /tmp/Anaconda3-2020.02-Linux-x86_64.sh
+```
+I prefer to put all programs in a specific folder, so I create a folder *Programs* inside my working folder. So that I can install *Anaconda3*, *Tensorflow* and others inside this *Program* for the ease of management.
+```
+mrdir /home/(yourusername)/Programs
+```
+Now run the script file
+```
+bash /tmp/Anaconda3-2020.11-Linux-x86_64.sh
+```
+I am not sure the script or the Ubuntu 20.04 that causes this trouble, but seem like the user has to read carefully press Enter when reading all agreement, otherwise you have to run the script again. This does not happen in Ubuntu 20.10 when we use Up/Down button to quickly scrolling through this lenghy statements. As I plan to install inside my *Programs* folder, I type the path when being asked with Anaconda as
+```
+mrdir /home/(yourusername)/Programs/Anaconda3
+```
 
 
 
