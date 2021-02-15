@@ -317,10 +317,18 @@ A quick verification of Tensorflow installation is the command
 ```
 python3 -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
 ```
-A quick verification of Tensorflow GPU installation is the command
+A testing for Tensorflow GPU installation is the command inside python3
 ```
-import tensorflow as tf
-tf.test.is_built_with_cuda()
+python3 -c "import tensorflow as tf; tf.test.is_built_with_cuda()"
 ```
 It should return *True* in case of successful installation.
 
+Another test with Python is
+```
+python3 -c "import tensorflow as tf; print(tf.__version__);"
+```
+You should see two lines, one is the CUDA library information and another is the version of Tensorflow
+```
+2021-02-15 16:35:13.419737: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2.4.1
+```
