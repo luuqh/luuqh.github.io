@@ -283,6 +283,9 @@ sudo apt-get update
 sudo apt-get -y install cuda
 ```
 
+![Nvidia CUDA](images/nvidia-cuda-install.png)
+
+
 Please check out the formal documents [NVIDIA CUDA Installation Guide for Linux](https://docs.nvidia.com/pdf/CUDA_Installation_Guide_Linux.pdf) to find the guide for different operating systems.
 
 
@@ -297,11 +300,27 @@ pip3 install --upgrade tensorflow
 Tensorflow 2.* comes with natural support for Tensorflow-GPU. So you don't need to install a separate GPU-based Tensorflow version for NVIDIA card.
 
 
-**Step 4: Install CUDA and cuDNN*
+**Step 4: Testing*
 
-A quick verification of its installation is the command
+To test whether you have installed successfully CUDA and Tensorflow, try with the following commands
+```
+whereis cuda
+nvidia-smi
+locate cuda | grep /cuda$
+nvcc --version
+```
+If you see somethings like below, meaning that it was successfully installed.
+
+![CUDA Testing](images/linux-cuda-testing.png) 
+ 
+A quick verification of Tensorflow installation is the command
 ```
 python3 -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
 ```
-
+A quick verification of Tensorflow GPU installation is the command
+```
+import tensorflow as tf
+tf.test.is_built_with_cuda()
+```
+It should return *True* in case of successful installation.
 
