@@ -185,7 +185,7 @@ sudo dpkg -i 'google-chrome-stable_current_amd64.deb'
 ```
 Some other useful packages that can be installed from Ubuntu Store, such as [VS Code](https://snapcraft.io/code), [VLC](apt://vlc), etc.
 
-### Install Conda, Docker
+### Install Conda and Docker
 
 Anaconda is a distribution of the Python and R programming languages for scientific computing, that aims to simplify package management and deployment. The instruction for installing Conda is based on [this post](https://linuxize.com/post/how-to-install-anaconda-on-ubuntu-20-04/). 
 
@@ -230,6 +230,38 @@ conda create --name tensorflow
 Activate this environment everytime you want to use it for your development with
 ```
 conda activate tensorflow
+```
+**Step 2: Docker**
+
+The guide to install Docker is given in the [Docker homepage](https://docs.docker.com/engine/install/ubuntu/). It consists of 3 simple sub-steps. First, install supporting packages
+```
+sudo apt-get update
+
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+```
+Then add Docker official GPG key and verify it with the fingerprint
+
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo apt-key fingerprint 0EBFCD88
+```
+Next, add the repository associated wity your Ubuntu version
+```
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+```
+Now start installing the software
+```
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
 ### Install Tensorflow, CUDA, cuDNN
