@@ -396,4 +396,183 @@ If you want to run the non-GPU for a particular purpose, execute with *-nogpu* o
 ./darknet -nogpu test YOURIMAGE.png cfg/alexnet.cfg alexnet.weights
 ```
 
+**Step 3: Config OpenCV with Darknet** 
 
+An error might occurs when you compile DarkNet is
+```
+to the PKG_CONFIG_PATH environment variable
+No package 'opencv' found
+./src/image_opencv.cpp:5:10: fatal error: opencv2/opencv.hpp: No such file or directory
+5 | #include "opencv2/opencv.hpp"
+| ^~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:86: obj/image_opencv.o] Error 1
+```
+You need to fix at two places. One is change from *opencv* to *opencv4* in *Makefile* file, i.e. from
+```
+ifeq ($(OPENCV), 1) 
+COMMON+= -DOPENCV
+CFLAGS+= -DOPENCV
+LDFLAGS+= `pkg-config --libs opencv` -lstdc++
+COMMON+= `pkg-config --cflags opencv` 
+endif
+```
+to
+```
+ifeq ($(OPENCV), 1) 
+COMMON+= -DOPENCV
+CFLAGS+= -DOPENCV
+LDFLAGS+= `pkg-config --libs opencv4` -lstdc++
+COMMON+= `pkg-config --cflags opencv4` 
+endif
+```
+Another place is to change the file *./src/image_opencv.cpp* as follows. First, add the new statements 
+```
+Mat image_to_mat(image im)
+{
+image copy = copy_image(im);
+constrain_image(copy);
+if(im.c == 3) rgbgr_image(copy);
+
+Mat m(cv::Size(im.w,im.h), CV_8UC(im.c));
+int x,y,c;
+
+int step = m.step;
+for(y = 0; y < im.h; ++y){
+    for(x = 0; x < im.w; ++x){
+        for(c= 0; c < im.c; ++c){
+            float val = im.data[c*im.h*im.w + y*im.w + x];
+            m.data[y*step + x*im.c + c] = (unsigned char)(val*255);
+        }
+    }
+}
+
+free_image(copy);
+return m;
+
+}
+
+image mat_to_image(Mat m)
+{
+
+int h = m.rows;
+int w = m.cols;
+int c = m.channels();
+image im = make_image(w, h, c);
+unsigned char *data = (unsigned char *)m.data;
+int step = m.step;
+int i, j, k;
+
+for(i = 0; i < h; ++i){
+    for(k= 0; k < c; ++k){
+        for(j = 0; j < w; ++j){
+            im.data[k*w*h + i*w + j] = data[i*step + j*c + k]/255.;
+        }
+    }
+}
+rgbgr_image(im);
+return im;
+}
+```
+then comment out the code associated with *IplImage* onwards
+```
+/*
+IplImage *image_to_ipl(image im)
+{
+    int x,y,c;
+    IplImage *disp = cvCreateImage(cvSize(im.w,im.h), IPL_DEPTH_8U, im.c);
+    int step = disp->widthStep;
+    for(y = 0; y < im.h; ++y){
+        for(x = 0; x < im.w; ++x){
+            for(c= 0; c < im.c; ++c){
+                float val = im.data[c*im.h*im.w + y*im.w + x];
+                disp->imageData[y*step + x*im.c + c] = (unsigned char)(val*255);
+            }
+        }
+    }
+    return disp;
+}
+
+image ipl_to_image(IplImage* src)
+{
+    int h = src->height;
+    int w = src->width;
+    int c = src->nChannels;
+    image im = make_image(w, h, c);
+    unsigned char *data = (unsigned char *)src->imageData;
+    int step = src->widthStep;
+    int i, j, k;
+
+    for(i = 0; i < h; ++i){
+        for(k= 0; k < c; ++k){
+            for(j = 0; j < w; ++j){
+                im.data[k*w*h + i*w + j] = data[i*step + j*c + k]/255.;
+            }
+        }
+    }
+    return im;
+}
+
+Mat image_to_mat(image im)
+{
+    image copy = copy_image(im);
+    constrain_image(copy);
+    if(im.c == 3) rgbgr_image(copy);
+
+    IplImage *ipl = image_to_ipl(copy);
+    Mat m = cvarrToMat(ipl, true);
+    cvReleaseImage(&ipl);
+    free_image(copy);
+    return m;
+}
+
+image mat_to_image(Mat m)
+{
+    IplImage ipl = m;
+    image im = ipl_to_image(&ipl);
+    rgbgr_image(im);
+    return im;
+}*/
+```
+Then remove all CV_ from opencv flags:
+```
+if(w) cap->set(CV_CAP_PROP_FRAME_WIDTH, w);
+if(h) cap->set(CV_CAP_PROP_FRAME_HEIGHT, w);
+if(fps) cap->set(CV_CAP_PROP_FPS, w);
+```
+to
+```
+if(w) cap->set(CAP_PROP_FRAME_WIDTH, w);
+if(h) cap->set(CAP_PROP_FRAME_HEIGHT, w);
+if(fps) cap->set(CAP_PROP_FPS, w);
+```
+Finally, the line in *Makefile* 
+```
+setWindowProperty(name, CV_WND_PROP_FULLSCREEN, CV_WINDOW_FULLSCREEN);
+```
+needs to be changed to
+```
+setWindowProperty(name, WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
+```
+The above debugging is suggested by [*George-Ogden* and *y9luiz*](https://github.com/pjreddie/darknet/issues/1886), which works well for me.
+
+After compiling darknet with GPU enabled and running
+```
+./darknet detect cfg/yolo.cfg yolo.weights data/dog.jpg
+```
+You may received the *Assertion 0* error
+```
+...
+28 conv    128  1 x 1 / 1    76 x  76 x 256   ->    76 x  76 x 128  0.379 BFLOPs
+29 CUDA Error: out of memory
+darknet: ./src/cuda.c:36: check_error: Assertion `0' failed.
+Aborted (core dumped)
+```
+The fix is to change batch size from 64 to 32 in *cfg/yolo.cfg* - thanks to the suggestion of [affian](https://github.com/pjreddie/darknet/issues/304) as follows
+```
+sudo nano cfg/yolo.cfg 
+```
+Change *batch=64* to *batch=32* and save (with *Clt+O* and *Enter* before exit with *Clt+X*). Now try again and this statement should work
+```
+./darknet detect cfg/yolo.cfg yolo.weights data/dog.jpg
+```
