@@ -353,9 +353,16 @@ Then grab darknet from GitHub
 ```
 git clone https://github.com/pjreddie/darknet.git
 cd darknet
+```
+Since we use GPU, now open the *Makefike* in this folder - using text editor or using the following command line
+```
+nano Makefile
+```
+Locate the first line of file and change the content *GPU=0* to *GPU=1*. By configurating this, we allow for Darknet to use GPU in deep learning tasks. Now move on with the compilation in the Terminal window
+```
 make
 ```
-After compilation
+After compilation, try this command
 ```
 ./darknet
 ```
