@@ -337,7 +337,20 @@ You should see two lines, one is the CUDA library information and another is the
 
 OpenCV is a well-known library for computer vision orginally developed by Intel. We will build OpenCV in our Linux rig from scratch. Darknet is an open source neural network framework written in C/C++ and CUDA, which contains the state-of-the-art real-time object detection system, so-called YOLO. We will install both of them here.
 
-**Step 1: Install Darknet** 
+**Step 1: Install OpenCV** 
+
+Unlike the case of Apple Mac M1, we donot need to build the source to get OpenCV worked.
+
+```
+sudo apt update
+sudo apt install libopencv-dev python3-opencv
+```
+A simple test that return *4.2.0* will let you know that you have been successful after the command
+```
+python3 -c "import cv2; print(cv2.__version__)"
+```
+
+**Step 2: Install Darknet** 
 
 Install darknet is simple and straightforward by [Joseph Redmon](https://pjreddie.com/darknet/install/). First, I create a folder *darknet* put it in the folder
 ```
@@ -358,7 +371,9 @@ Since we use GPU, now open the *Makefike* in this folder - using text editor or 
 ```
 nano Makefile
 ```
-Locate the first line of file and change the content *GPU=0* to *GPU=1*. By configurating this, we allow for Darknet to use GPU in deep learning tasks. Now move on with the compilation in the Terminal window
+Locate the first line of file and change the content *GPU=0* to *GPU=1*. By configurating this, we allow for Darknet to use GPU in deep learning tasks. Also we can take advantage of the CV library in Darknet by changing from *OPENCV=0* to *OPENCV=1*.
+
+Now move on with the compilation in the Terminal window
 ```
 make
 ```
@@ -381,16 +396,4 @@ If you want to run the non-GPU for a particular purpose, execute with *-nogpu* o
 ./darknet -nogpu test YOURIMAGE.png cfg/alexnet.cfg alexnet.weights
 ```
 
-
-**Step 3: Build OpenCV** 
-
-First, we download the latest version of OpenCV (4.5.1) in GitHub either directly or using git. We need both OpenCV [main packages](https://github.com/opencv/opencv/) and their [extra modules](https://github.com/opencv/opencv_contrib). Unzip both folders, so that you now having two folders after decompression
-```
-opencv-main
-opencv_contrib-main
-```
-Now assume you want to allow *darknet* to use *OpenCV* later, you should configure the path such as
-```
-/home/luuquanghung/darknet/darknet/opencv/opencv_contrib-master/modules
-```
 
