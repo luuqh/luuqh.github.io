@@ -332,3 +332,48 @@ You should see two lines, one is the CUDA library information and another is the
 2021-02-15 16:35:13.419737: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
 2.4.1
 ```
+
+### Install OpenCV and Darknet
+
+OpenCV is a well-known library for computer vision orginally developed by Intel. We will build OpenCV in our Linux rig from scratch. Darknet is an open source neural network framework written in C/C++ and CUDA, which contains the state-of-the-art real-time object detection system, so-called YOLO. We will install both of them here.
+
+**Step 1: Install Darknet** 
+
+Install darknet is simple and straightforward by [Joseph Redmon](https://pjreddie.com/darknet/install/). First, I create a folder *darknet* put it in the folder
+```
+/home/luuquanghung/Programs/darknet
+cd darknet
+```
+Sometimes *git* tool is not available in your system, so install it with
+```
+sudo apt install git
+```
+
+Then grab darknet from GitHub 
+```
+git clone https://github.com/pjreddie/darknet.git
+cd darknet
+make
+```
+After compilation
+```
+./darknet
+```
+you will be succesful if you see something like
+```
+usage: ./darknet <function>
+
+```
+
+**Step 3: Build OpenCV** 
+
+First, we download the latest version of OpenCV (4.5.1) in GitHub either directly or using git. We need both OpenCV [main packages](https://github.com/opencv/opencv/) and their [extra modules](https://github.com/opencv/opencv_contrib). Unzip both folders, so that you now having two folders after decompression
+```
+opencv-main
+opencv_contrib-main
+```
+Now assume you want to allow *darknet* to use *OpenCV* later, you should configure the path such as
+```
+/home/luuquanghung/darknet/darknet/opencv/opencv_contrib-master/modules
+```
+
