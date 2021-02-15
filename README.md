@@ -185,7 +185,7 @@ sudo dpkg -i 'google-chrome-stable_current_amd64.deb'
 ```
 Some other useful packages that can be installed from Ubuntu Store, such as [VS Code](https://snapcraft.io/code), [VLC](apt://vlc), etc.
 
-### Install Conda, Tensorflow, Docker
+### Install Conda, Docker
 
 Anaconda is a distribution of the Python and R programming languages for scientific computing, that aims to simplify package management and deployment. The instruction for installing Conda is based on [this post](https://linuxize.com/post/how-to-install-anaconda-on-ubuntu-20-04/). 
 
@@ -231,9 +231,19 @@ Activate this environment everytime you want to use it for your development with
 ```
 conda activate tensorflow
 ```
-**Step 2: Install Tensorflow**
 
-Tensorflow for Linux should be installed manually using Command Line Interface (CLI). The below instruction is similar to the one given in [Tensorflow website](https://www.tensorflow.org/install/pip#virtual-environment-install).
+### Install Tensorflow, CUDA, cuDNN
+
+After checking the hardware, I found that my NVIDIA GTX 970 card is supported by the CUDA 6.5 onward.
+```
+https://developer.nvidia.com/cuda-downloads-geforce-gtx9xx
+https://developer.nvidia.com/cuda-toolkit-65
+```
+
+**Step 1: Preparation**
+
+Thanks to the backward compatibility, we can install the latest CUDA (11.x), Tensorflow (2.x) and cuDNN (8.x) to use my Maxwell-architecture card. 
+
 
 Install some supporting packages for Python environment
 ```
@@ -247,30 +257,51 @@ Sometimes PIP package is missing, so you may need to install it first
 ```
 sudo apt install python3-pip
 ```
-before actually install latest version of Tensorflow (2.4.1 as of the time of this writing)
+We also need the test resource package for a smooth installation of Tensorflow later, so get it 
+```
+sudo apt install python3-testresources
+```
+We can add a searching tool as well which later used with *locate* command like *locate cuda | grep /cuda$*
+```
+sudo apt install mlocate
+```
+
+**Step 2: Install CUDA and cuDNN*
+
+To install the correct version of CUDA and cuDNN, locate your operating systems and distro from [the link](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=2004&target_type=deblocal)
+```
+https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=2004&target_type=deblocal
+```
+You can see that the instruction for install it can be summarized into the following steps
+```
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/11.2.1/local_installers/cuda-repo-ubuntu2004-11-2-local_11.2.1-460.32.03-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu2004-11-2-local_11.2.1-460.32.03-1_amd64.deb
+sudo apt-key add /var/cuda-repo-ubuntu2004-11-2-local/7fa2af80.pub
+sudo apt-get update
+sudo apt-get -y install cuda
+```
+
+Please check out the formal documents [NVIDIA CUDA Installation Guide for Linux](https://docs.nvidia.com/pdf/CUDA_Installation_Guide_Linux.pdf) to find the guide for different operating systems.
+
+
+**Step 3: Install Tensorflow**
+
+Tensorflow for Linux should be installed manually using Command Line Interface (CLI). You can find the instruction in the official [Tensorflow website](https://www.tensorflow.org/install/pip#virtual-environment-install). 
+
+For me, I install the latest version of Tensorflow (2.4.1 as of the time of this writing) as follows
 ```
 pip3 install --upgrade tensorflow
 ```
+Tensorflow 2.* comes with natural support for Tensorflow-GPU. So you don't need to install a separate GPU-based Tensorflow version for NVIDIA card.
+
+
+**Step 4: Install CUDA and cuDNN*
+
 A quick verification of its installation is the command
 ```
 python3 -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
-```
-
-### Install Tensorflow-GPU, CUDA, cuDNN, NVIDIA Docker
-
-
-After checking the hardware, I found that my NVIDIA GTX 970 card is only supported by the CUDA 6.5. 
-```
-https://developer.nvidia.com/cuda-downloads-geforce-gtx9xx
-```
-The latest support OS is the *Ubuntu 14.04*. I grab this latest x86_64-bit DEB version from
-
-```
-https://developer.nvidia.com/cuda-toolkit-65
-```
-and install it. Since our NVIDIA GPU is no longer officially supported, we can only try the newer version (9.0) to see if it works
-```
-conda create -n cudatf tensorflow-gpu cudatoolkit=9.0
 ```
 
 
