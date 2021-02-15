@@ -372,6 +372,16 @@ usage: ./darknet <function>
 
 ```
 
+You can take some photo from elsewhere, say *YOURIMAGE.png* (case sensitive), put it in the same folder of darknet compilation. Now try the GPU mode with option *-i 0* where *0* is the slot of your NVIDIA GPU. In case you have multiple GPU, you can list them with *nvidia-smi* and select the preferred one with *1* or *2* instead of the default (first) detected GPU.
+```
+./darknet -i 0 test YOURIMAGE.png cfg/alexnet.cfg alexnet.weights
+```
+If you want to run the non-GPU for a particular purpose, execute with *-nogpu* option
+```
+./darknet -nogpu test YOURIMAGE.png cfg/alexnet.cfg alexnet.weights
+```
+
+
 **Step 3: Build OpenCV** 
 
 First, we download the latest version of OpenCV (4.5.1) in GitHub either directly or using git. We need both OpenCV [main packages](https://github.com/opencv/opencv/) and their [extra modules](https://github.com/opencv/opencv_contrib). Unzip both folders, so that you now having two folders after decompression
