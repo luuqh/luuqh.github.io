@@ -229,7 +229,7 @@ conda create --name tensorflow
 ```
 Activate this environment everytime you want to use it for your development with
 ```
-conda conda tensorflow
+conda activate tensorflow
 ```
 **Step 2: Install Tensorflow**
 
@@ -239,7 +239,11 @@ Install some supporting packages for Python environment
 ```
 sudo apt install python3-venv python3-dev
 ```
-Sometimes PIP package is missing, so you may need to reinstall it first
+In case you want to stick to Conda environment, then donot forget to activate it, e.g. *tensorflow*
+```
+conda activate tensorflow
+```
+Sometimes PIP package is missing, so you may need to install it first
 ```
 sudo apt install python3-pip
 ```
@@ -247,12 +251,12 @@ before actually install latest version of Tensorflow (2.4.1 as of the time of th
 ```
 pip3 install --upgrade tensorflow
 ```
-A quick verification of its install is the command
+A quick verification of its installation is the command
 ```
 python3 -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
 ```
 
-### Install Tensorflow-GPU, CUDA, nnCUDA, NVIDIA Docker
+### Install Tensorflow-GPU, CUDA, cuDNN, NVIDIA Docker
 
 
 After checking the hardware, I found that my NVIDIA GTX 970 card is only supported by the CUDA 6.5. 
