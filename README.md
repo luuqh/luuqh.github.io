@@ -35,7 +35,7 @@ conda install -y jupyterlab
 Grab the most recent Tensorflow version from Apple team in GitHub:
 [https://github.com/apple/tensorflow_macos/releases](https://github.com/apple/tensorflow_macos/releases). 
 
-Unfold Assets tab ![Assets tab](images/apple-tensorflow-assets.png) and select the complete version [tensorflow_macos-0.1alpha2.tar.gz](https://github.com/apple/tensorflow_macos/releases/download/v0.1alpha2/tensorflow_macos-0.1alpha2.tar.gz). Unzip it to your download folder. The key thing is do not run the default installation given by Apple. It does not work as in my case. Note that *pip* should be installed before the following sub-steps as well.
+Unfold Assets tab ![Assets tab](images/apple-tensorflow-assets.png) and select the complete version [tensorflow_macos-0.1alpha2.tar.gz](https://github.com/apple/tensorflow_macos/releases/download/v0.1alpha1/tensorflow_macos-0.1alpha1.tar.gz). Unzip it to your download folder. The key thing is do not run the default installation given by Apple. It does not work as in my case. Note that *pip* should be installed before the following sub-steps as well.
 
 Change directory to this folder
 ```
