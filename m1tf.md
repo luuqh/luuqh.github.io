@@ -1,4 +1,4 @@
-(https://luuqh.github.io)[© Hung Q. Luu]
+[© Hung Q. Luu](https://luuqh.github.io)
 
 
 
