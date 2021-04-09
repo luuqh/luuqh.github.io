@@ -1,5 +1,5 @@
-© Hung Q. Luu
-luuqh.github.io
+(https://luuqh.github.io)[© Hung Q. Luu]
+
 
 
 ## Setup Apple silicon Mac for Deep Learning
