@@ -7,4 +7,4 @@ Apple silicon-based products released in the end of 2020 are the game-changer. M
 
 [Setup Ubuntu Linux for Deep Learning](https://github.com/luuqh/luuqh.github.io/blob/main/utf.md)
 
-While Apple Mac is a reasonable choice to play around with data analytics, most of deep learning tasks are executed on Linux-like systems. We will set up an Ubuntu system with NVIDIA graphic card and related CUDA libraries. Please see [this link](https://github.com/luuqh/luuqh.github.io/blob/main/utf.md) for my instruction.
+While Apple Mac is a reasonable choice to play around with data analytics, most of deep learning tasks are executed on Linux-like systems. We will set up the latest Ubuntu system with NVIDIA graphic card and related cuDNN, CUDA and Tensorflow. A testdrive with DarkNet and YOLO is provided. Please see [this link](https://github.com/luuqh/luuqh.github.io/blob/main/utf.md) for my instruction.
