@@ -1,7 +1,7 @@
 [© Hung Q. Luu](https://luuqh.github.io)
 
 
-## Setup Ubuntu System for Deep Learning
+## Setup Linux System for Deep Learning
 
 While Apple Mac is a reasonable choice to play around with data analytics, most of deep learning tasks are executed on Linux-like systems. We will set up an Ubuntu system with hardware configuration of Intel Core i7, NVIDIA GTX 970, 16 GB RAM, 1 TB SSD and 3 TB HDD.  
 
