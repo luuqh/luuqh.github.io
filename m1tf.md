@@ -104,7 +104,11 @@ You should also to point to the python compiler correctly in the *appletf* conda
 ```
 /Users/YOURNAME/opt/miniforge/envs/appletf/bin/python3
 ```
-If you are happy with both paths, modify the following statements to include both of them
+If you install OpenCV without darknet, make sure you move to the folder of cmake of OpenCV
+```
+/Users/YOURNAME/opt/darknet/opencv/opencv-master/cmake
+```
+If you are happy with the paths, modify the following statements to include both of them
 ```
 arch -arm64 cmake \
   -DCMAKE_SYSTEM_PROCESSOR=arm64 \
